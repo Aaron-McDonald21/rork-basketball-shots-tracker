@@ -1,0 +1,38 @@
+{
+  "build": {
+    "production": {
+      "developmentClient": false,
+      "distribution": "store",
+      "ios": {
+        "simulator": false
+      },
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "Aaronwmcdonald21@gmail.com",
+        "ascAppId": "6755698661"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./credentials/android-service-account.json"
+      }
+    }
+  },
+  "cli": {
+    "version": ">= 3.0.0"
+  }
+}
