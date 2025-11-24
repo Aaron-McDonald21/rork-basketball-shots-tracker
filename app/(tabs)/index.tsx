@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Mic, MicOff, Target, Play, Pause, Square, Check, X, Undo2, Lock, Unlock } from "lucide-react-native";
+import { Mic, MicOff, Target, Play, Pause, Square, Check, X, Undo2, Lock, Unlock, ChevronDown, ChevronUp } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
 import { useStats } from "@/contexts/StatsContext";
 import { usePlayers } from "@/contexts/PlayersContext";
@@ -51,6 +51,7 @@ export default function RecordScreen() {
   const { isPro } = useSubscription();
 
   const [isLocked, setIsLocked] = React.useState(false);
+  const [instructionsExpanded, setInstructionsExpanded] = React.useState(false);
   const [feedbackType, setFeedbackType] = React.useState<'make' | 'miss' | null>(null);
   const feedbackOpacity = React.useRef(new Animated.Value(0)).current;
   const feedbackScale = React.useRef(new Animated.Value(0.5)).current;
@@ -711,31 +712,39 @@ export default function RecordScreen() {
         )}
 
         <View style={styles.instructions}>
-          <Text style={styles.instructionsTitle}>How to Use</Text>
-          <View style={styles.instructionItem}>
-            <Text style={styles.instructionNumber}>1</Text>
-            <Text style={styles.instructionText}>
-              Select a shot category or say &quot;free throws&quot;, &quot;three pointers&quot;, &quot;midrange&quot;, or &quot;layups&quot;
-            </Text>
-          </View>
-          <View style={styles.instructionItem}>
-            <Text style={styles.instructionNumber}>2</Text>
-            <Text style={styles.instructionText}>
-              Press the mic button to start recording
-            </Text>
-          </View>
-          <View style={styles.instructionItem}>
-            <Text style={styles.instructionNumber}>3</Text>
-            <Text style={styles.instructionText}>
-              Say &quot;make&quot; or &quot;miss&quot; after each shot
-            </Text>
-          </View>
-          <View style={styles.instructionItem}>
-            <Text style={styles.instructionNumber}>4</Text>
-            <Text style={styles.instructionText}>
-              Press again to stop and process your command
-            </Text>
-          </View>
+          <TouchableOpacity 
+            style={styles.instructionsHeader}
+            onPress={() => setInstructionsExpanded(!instructionsExpanded)}
+          >
+            <Text style={styles.instructionsTitle}>How to Use</Text>
+            {instructionsExpanded ? (
+              <ChevronUp size={20} color={colors.palette.text} />
+            ) : (
+              <ChevronDown size={20} color={colors.palette.text} />
+            )}
+          </TouchableOpacity>
+          {instructionsExpanded && (
+            <>
+              <View style={styles.instructionItem}>
+                <Text style={styles.instructionNumber}>1</Text>
+                <Text style={styles.instructionText}>
+                  Select a shot category or say &quot;free throws&quot;, &quot;three pointers&quot;, &quot;midrange&quot;, or &quot;layups&quot;
+                </Text>
+              </View>
+              <View style={styles.instructionItem}>
+                <Text style={styles.instructionNumber}>2</Text>
+                <Text style={styles.instructionText}>
+                  Press the mic button to start recording
+                </Text>
+              </View>
+              <View style={styles.instructionItem}>
+                <Text style={styles.instructionNumber}>3</Text>
+                <Text style={styles.instructionText}>
+                  Say &quot;make&quot; or &quot;miss&quot; after each shot
+                </Text>
+              </View>
+            </>
+          )}
         </View>
       </ScrollView>
     </View>
@@ -971,11 +980,16 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
   },
+  instructionsHeader: {
+    flexDirection: "row" as const,
+    justifyContent: "space-between" as const,
+    alignItems: "center" as const,
+    marginBottom: 16,
+  },
   instructionsTitle: {
     fontSize: 18,
     fontWeight: "700" as const,
     color: colors.palette.text,
-    marginBottom: 16,
   },
   instructionItem: {
     flexDirection: "row" as const,
