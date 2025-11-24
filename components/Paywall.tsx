@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Linking } from "react-native";
 import { Star, Zap, Shield, Crown, Check } from "lucide-react-native";
 import colors from "@/constants/colors";
 import { useSubscription } from "@/contexts/SubscriptionContext";
@@ -182,6 +182,20 @@ export function Paywall({ onDismiss, title = "Unlock Pro Access", subtitle = "Ta
         <Text style={styles.disclaimer}>
           Payment will be charged to your Apple ID account at confirmation of purchase. Subscription automatically renews unless canceled at least 24 hours before the end of the current period. Manage your subscription in App Store settings.
         </Text>
+      </View>
+
+      <View style={styles.linksContainer}>
+        <TouchableOpacity onPress={() => Linking.openURL("https://www.practiceprovolleyball.com/terms.html")}>
+          <Text style={styles.linkText}>Terms of Service</Text>
+        </TouchableOpacity>
+        <Text style={styles.linkSeparator}>•</Text>
+        <TouchableOpacity onPress={() => Linking.openURL("https://www.practiceprovolleyball.com/privacy.html")}>
+          <Text style={styles.linkText}>Privacy Policy</Text>
+        </TouchableOpacity>
+        <Text style={styles.linkSeparator}>•</Text>
+        <TouchableOpacity onPress={() => Linking.openURL("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")}>
+          <Text style={styles.linkText}>EULA</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -446,6 +460,24 @@ const styles = StyleSheet.create({
     color: colors.palette.mutedText,
     textAlign: "center",
     lineHeight: 14,
+    opacity: 0.5,
+  },
+  linksContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 16,
+    paddingBottom: 8,
+    gap: 8,
+  },
+  linkText: {
+    fontSize: 11,
+    color: colors.palette.primary,
+    fontWeight: "600",
+  },
+  linkSeparator: {
+    fontSize: 11,
+    color: colors.palette.mutedText,
     opacity: 0.5,
   },
   successContent: {
