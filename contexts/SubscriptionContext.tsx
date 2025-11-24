@@ -5,10 +5,9 @@ import { useState, useEffect, useCallback } from "react";
 import { Alert, Platform } from "react-native";
 import Purchases, { CustomerInfo, PurchasesPackage, PurchasesOffering } from "react-native-purchases";
 
-// TODO: Replace with your RevenueCat public API keys
 const API_KEYS = {
-  ios: "appl_replace_with_your_ios_key",
-  android: "goog_replace_with_your_android_key",
+  ios: "appl_wqDpYnZyXMUMXHhhqIOsKoPvWRr",
+  android: "appl_wqDpYnZyXMUMXHhhqIOsKoPvWRr",
 };
 
 const ENTITLEMENT_ID = "pro"; // Replace with your entitlement ID from RevenueCat

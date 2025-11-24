@@ -198,7 +198,7 @@ export default function RecordScreen() {
   const { isRecording, isProcessing, latestTranscript, startRecording, stopRecording, error: voiceError } =
     useVoiceRecorder({
       onPartialTranscription: handlePartialTranscription,
-      chunkDurationMs: 2500, // Reduced from 4000ms to improve responsiveness
+      chunkDurationMs: 1800, // Reduced slightly for faster response while maintaining performance
     });
 
   // Clear local error when voice error clears
@@ -413,7 +413,7 @@ export default function RecordScreen() {
                   </View>
                   {!isPro && (
                     <View style={styles.demoBadge}>
-                      <Text style={styles.demoBadgeText}>Demo: Result won't save</Text>
+                      <Text style={styles.demoBadgeText}>Demo: Result won&apos;t save</Text>
                     </View>
                   )}
                 </View>
