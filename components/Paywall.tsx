@@ -164,7 +164,7 @@ export function Paywall({ onDismiss, title = "Unlock Pro Access", subtitle = "Ta
         {isPurchasing ? (
           <ActivityIndicator size="small" color="#fff" />
         ) : (
-          <Text style={styles.subscribeButtonText}>Start Free Trial</Text>
+          <Text style={styles.subscribeButtonText}>Subscribe Now</Text>
         )}
       </TouchableOpacity>
 
