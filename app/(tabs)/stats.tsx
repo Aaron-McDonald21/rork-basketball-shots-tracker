@@ -14,7 +14,7 @@ import { BarChart3, RotateCcw, Printer, FileText } from "lucide-react-native";
 import * as Print from "expo-print";
 import { generateStatsHTML } from "@/utils/generateStatsHTML";
 import * as Haptics from "expo-haptics";
-import { useStats } from "@/contexts/StatsContext";
+import { usePlayers } from "@/contexts/PlayersContext";
 import { StatCard } from "@/components/StatCard";
 import { StatsBarChart } from "@/components/StatsBarChart";
 import colors from "@/constants/colors";
@@ -24,12 +24,17 @@ import { useSubscription } from "@/contexts/SubscriptionContext";
 
 export default function StatsScreen() {
   const insets = useSafeAreaInsets();
-  const { stats, sessionStats, resetStats } = useStats();
+  const { selectedPlayer, activeSession, clearPlayerHistory } = usePlayers();
   const { isPro } = useSubscription();
 
   const handlePrint = async (type: 'session' | 'all-time') => {
-    const data = type === 'session' ? sessionStats : stats;
-    const title = type === 'session' ? 'Session Stats' : 'All-Time Stats';
+    if (!selectedPlayer) {
+      Alert.alert('No Player Selected', 'Please select a player first.');
+      return;
+    }
+
+    const data = type === 'session' && activeSession ? activeSession.stats : selectedPlayer.stats;
+    const title = type === 'session' ? `Session Stats - ${selectedPlayer.name}` : `All-Time Stats - ${selectedPlayer.name}`;
     
     try {
       const html = generateStatsHTML(data, title);
@@ -64,27 +69,39 @@ export default function StatsScreen() {
   }
 
   const handleReset = () => {
+    if (!selectedPlayer) {
+      Alert.alert('No Player Selected', 'Please select a player first.');
+      return;
+    }
+
     const confirmReset = () => {
       if (Platform.OS !== "web") {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       }
-      resetStats();
+      clearPlayerHistory(selectedPlayer.id);
     };
 
     if (Platform.OS === "web") {
-      if (window.confirm("Are you sure you want to reset all stats?")) {
+      if (window.confirm(`Are you sure you want to reset all stats for ${selectedPlayer.name}?`)) {
         confirmReset();
       }
     } else {
       Alert.alert(
         "Reset Stats",
-        "Are you sure you want to reset all stats? This action cannot be undone.",
+        `Are you sure you want to reset all stats for ${selectedPlayer.name}? This action cannot be undone.`,
         [
           { text: "Cancel", style: "cancel" },
           { text: "Reset", style: "destructive", onPress: confirmReset },
         ]
       );
     }
+  };
+
+  const stats = selectedPlayer?.stats || {
+    freeThrows: { makes: 0, misses: 0, total: 0, percentage: 0 },
+    threePointers: { makes: 0, misses: 0, total: 0, percentage: 0 },
+    midrange: { makes: 0, misses: 0, total: 0, percentage: 0 },
+    layups: { makes: 0, misses: 0, total: 0, percentage: 0 },
   };
 
   const totalShots = stats.freeThrows.total + stats.threePointers.total;
@@ -114,7 +131,7 @@ export default function StatsScreen() {
       >
         <View style={styles.header}>
           <BarChart3 size={32} color={colors.palette.primary} />
-          <Text style={styles.headerTitle}>Your Performance</Text>
+          <Text style={styles.headerTitle}>{selectedPlayer ? `${selectedPlayer.name}'s Performance` : 'Your Performance'}</Text>
         </View>
 
         <View style={styles.overallCard}>
@@ -150,12 +167,22 @@ export default function StatsScreen() {
           threePointers={stats.threePointers}
         />
 
-        {totalShots === 0 && (
+        {!selectedPlayer && (
+          <View style={styles.emptyState}>
+            <BarChart3 size={48} color={colors.palette.surfaceAlt} />
+            <Text style={styles.emptyStateTitle}>No Player Selected</Text>
+            <Text style={styles.emptyStateText}>
+              Select a player from the Players tab to view their stats
+            </Text>
+          </View>
+        )}
+
+        {selectedPlayer && totalShots === 0 && (
           <View style={styles.emptyState}>
             <BarChart3 size={48} color={colors.palette.surfaceAlt} />
             <Text style={styles.emptyStateTitle}>No Stats Yet</Text>
             <Text style={styles.emptyStateText}>
-              Start recording shots to see your stats here
+              Start recording shots to see stats for {selectedPlayer.name}
             </Text>
           </View>
         )}
