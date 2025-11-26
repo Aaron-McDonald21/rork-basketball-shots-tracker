@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Basketball Shots Tracker",
+    "name": "Basketball",
     "slug": "basketball-stats-tracker-nm4719q",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "rork-app",
