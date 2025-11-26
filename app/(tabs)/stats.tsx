@@ -36,9 +36,11 @@ export default function StatsScreen() {
       await Print.printAsync({
         html,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Print error:', error);
-      Alert.alert('Error', 'Failed to generate PDF');
+      if (error?.message && !error.message.includes('cancelled') && !error.message.includes('dismissed')) {
+        Alert.alert('Error', 'Failed to generate PDF');
+      }
     }
   };
 
