@@ -35,9 +35,10 @@ export default function StatsScreen() {
 
     const data = type === 'session' && activeSession ? activeSession.stats : selectedPlayer.stats;
     const title = type === 'session' ? `Session Stats - ${selectedPlayer.name}` : `All-Time Stats - ${selectedPlayer.name}`;
+    const sessions = type === 'all-time' ? selectedPlayer.sessions : undefined;
     
     try {
-      const html = generateStatsHTML(data, title);
+      const html = generateStatsHTML(data, title, sessions);
       await Print.printAsync({
         html,
       });
