@@ -297,6 +297,14 @@ export function useVoiceRecorder(options?: UseVoiceRecorderOptions): UseVoiceRec
     console.log("[Voice] Starting native chunk...");
     const recording = new Audio.Recording();
     try {
+      if (!audioModeActiveRef.current) {
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          playsInSilentModeIOS: true,
+        });
+        audioModeActiveRef.current = true;
+      }
+
       await recording.prepareToRecordAsync({
         android: {
           extension: ".m4a",
