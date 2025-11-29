@@ -17,7 +17,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "app.rork.basketball-shots-tracker",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone",
+        "UIBackgroundModes": []
       }
     },
     "android": {
