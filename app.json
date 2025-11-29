@@ -2,7 +2,7 @@
   "expo": {
     "name": "Shot Tracker",
     "slug": "Shot Tracker",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "rork-app",
