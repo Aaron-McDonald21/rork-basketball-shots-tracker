@@ -2,7 +2,7 @@
   "expo": {
     "name": "Shot Tracker",
     "slug": "basketball-stats-tracker-nm4719q",
-    "version": "1.0.5",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "rork-app",
@@ -18,7 +18,7 @@
       "bundleIdentifier": "app.rork.basketball-shots-tracker",
       "bundleDisplayName": "Shot Tracker",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "Shot Tracker needs microphone access so you can say 'make' or 'miss' to record stats hands‑free.",
+        "NSMicrophoneUsageDescription": "The microphone lets you record basketball shots with simple voice commands like 'make' or 'miss'.",
         "UIBackgroundModes": []
       }
     },
@@ -45,12 +45,7 @@
       ],
       "expo-font",
       "expo-web-browser",
-      [
-        "expo-av",
-        {
-          "microphonePermission": "Shot Tracker uses the microphone so you can say 'make' or 'miss' to record basketball stats hands‑free."
-        }
-      ]
+      "expo-av"
     ],
     "experiments": {
       "typedRoutes": true
