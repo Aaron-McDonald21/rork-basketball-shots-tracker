@@ -45,12 +45,7 @@
       ],
       "expo-font",
       "expo-web-browser",
-      [
-        "expo-av",
-        {
-          "microphonePermission": "Shot Tracker uses the microphone so you can say 'make' or 'miss' to record basketball stats hands‑free."
-        }
-      ]
+      "expo-av"
     ],
     "experiments": {
       "typedRoutes": true
