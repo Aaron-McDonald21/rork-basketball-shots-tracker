@@ -18,7 +18,7 @@
       "bundleIdentifier": "app.rork.basketball-shots-tracker",
       "bundleDisplayName": "Shot Tracker",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "Shot Tracker uses the microphone to capture voice commands (like 'make' or 'miss') so it can automatically record basketball shot stats during practice and games.",
+        "NSMicrophoneUsageDescription": "The microphone lets you track basketball shots with simple voice commands like 'make' or 'miss'.",
         "UIBackgroundModes": []
       }
     },
