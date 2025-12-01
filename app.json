@@ -2,7 +2,7 @@
   "expo": {
     "name": "Shot Tracker",
     "slug": "basketball-stats-tracker-nm4719q",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "rork-app",
@@ -45,7 +45,12 @@
       ],
       "expo-font",
       "expo-web-browser",
-      "expo-av"
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Shot Tracker uses the microphone so you can say 'make' or 'miss' to record basketball stats hands‑free."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
